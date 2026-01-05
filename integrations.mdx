@@ -1,0 +1,156 @@
+---
+title: Integrations and Extensions
+description: Connect D.Galkin with third-party services to enhance functionality through APIs, webhooks, and plugins.
+---
+
+## Overview
+
+Connect D.Galkin (Di.G) to popular third-party services using webhooks, APIs, and plugins. This expands your workflow by automating notifications, syncing data, and triggering actions across platforms. You configure integrations through the dashboard at `https://dashboard.example.com/integrations` or via API calls to `https://api.example.com/v1/integrations`.
+
+<Callout kind="info">
+  Enable integrations in your account settings first. Visit the Integrations tab to search and connect services.
+</Callout>
+
+## Popular Integrations
+
+D.Galkin supports seamless connections to leading services. Use the dashboard to authenticate and map events.
+
+<Columns cols={3}>
+  <Card title="Slack" icon="message-circle" href="https://slack.com/apps" target="_blank">
+    Send real-time notifications for user signups, payments, or errors.
+  </Card>
+  <Card title="GitHub" icon="github" href="https://github.com/marketplace" target="_blank">
+    Automate deployments and issue tracking with webhook triggers.
+  </Card>
+  <Card title="Stripe" icon="credit-card" href="https://stripe.com" target="_blank">
+    Sync invoices, subscriptions, and payouts directly.
+  </Card>
+</Columns>
+
+<Card title="Zapier" icon="zap" href="https://zapier.com" target="_blank" horizontal>
+  Build no-code automations connecting D.Galkin to 5000+ apps.
+</Card>
+
+## Setting Up Webhooks
+
+Webhooks notify external services of D.Galkin events like `user.created` or `payment.succeeded`. Follow these steps to configure them.
+
+<Steps>
+  <Step title="Create Webhook" icon="plus">
+    In the dashboard, navigate to Integrations > Webhooks > New Webhook.
+    
+    Enter your endpoint URL, e.g., `https://your-webhook-url.com/webhook`.
+  </Step>
+  <Step title="Select Events">
+    Choose events to subscribe to, such as `user.signup` or `order.completed`.
+  </Step>
+  <Step title="Test and Save">
+    Send a test payload, then save. Verify receipt on your server.
+  </Step>
+</Steps>
+
+Example webhook payload:
+
+<CodeGroup tabs="user.signup,payment.succeeded">
+  ```json
+  {
+    "event": "user.signup",
+    "data": {
+      "id": "usr_123abc",
+      "email": "user@example.com",
+      "timestamp": "2024-01-15T10:30:00Z"
+    }
+  }
+  ```
+  ```json
+  {
+    "event": "payment.succeeded",
+    "data": {
+      "id": "pay_456def",
+      "amount": 2999,
+      "currency": "USD",
+      "user_id": "usr_123abc"
+    }
+  }
+  ```
+</CodeGroup>
+
+## Custom API Connections
+
+Build bespoke integrations using D.Galkin's REST API. Authenticate with `Authorization: Bearer YOUR_API_KEY`.
+
+<Request tabs="cURL,JavaScript">
+  ```bash
+  curl -X POST https://api.example.com/v1/integrations \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "service": "custom",
+      "endpoint": "https://your-service.com/api",
+      "events": ["user.created"]
+    }'
+  ```
+  ```javascript
+  const response = await fetch('https://api.example.com/v1/integrations', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      service: 'custom',
+      endpoint: 'https://your-service.com/api',
+      events: ['user.created']
+    })
+  });
+  ```
+</Request>
+
+<Response tabs="200,400">
+  ```json
+  {
+    "success": true,
+    "integration_id": "int_789ghi",
+    "status": "active"
+  }
+  ```
+  ```json
+  {
+    "error": "Invalid endpoint URL",
+    "code": "INVALID_URL"
+  }
+  ```
+</Response>
+
+## Security Considerations
+
+Protect your integrations with best practices.
+
+<Callout kind="alert">
+  Always validate incoming webhook payloads using HMAC signatures. Use `https://api.example.com/v1/webhooks/verify` to check authenticity. Never expose `YOUR_API_KEY` in client-side code.
+</Callout>
+
+<Callout kind="tip">
+  Rotate keys regularly via dashboard. Enable IP allowlisting for webhooks.
+</Callout>
+
+## Troubleshooting Common Issues
+
+<ExpandableGroup>
+  <Expandable title="Webhook not received" default-open="true">
+    Check your endpoint logs for `200 OK` responses. Ensure no firewalls block `https://api.example.com`. Test with ngrok for local development.
+  </Expandable>
+  <Expandable title="Authentication failed">
+    Verify `YOUR_API_KEY` format. Regenerate if compromised. Use dashboard audit logs at `https://dashboard.example.com/audit`.
+  </Expandable>
+  <Expandable title="Payload parsing errors">
+    Handle JSON strictly. Example parser:
+    
+    ````javascript
+    const signature = req.headers['x-dgalkin-signature'];
+    const isValid = verifySignature(payload, signature, YOUR_WEBHOOK_SECRET);
+    ````
+  </Expandable>
+</ExpandableGroup>
+
+Review dashboard logs for detailed errors. Contact support if issues persist.

@@ -1,0 +1,174 @@
+---
+title: Getting Started with D.Galkin
+description: Set up your D.Galkin account and complete your first steps to begin using the platform immediately.
+---
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+- A modern web browser (Chrome, Firefox, or Safari)
+- An email address for account verification
+- Access to your email inbox for confirmation links
+
+<Callout kind="info">
+
+D.Galkin requires account verification to enable full platform features. Complete email confirmation within 24 hours.
+
+</Callout>
+
+## Create and Verify Your Account
+
+Follow these steps to set up your D.Galkin account quickly.
+
+<Steps>
+  <Step title="Sign Up" icon="user-plus">
+
+    Visit [https://dashboard.example.com/signup](https://dashboard.example.com/signup) and enter your email, password, and display name.
+
+    Choose a strong password with at least 12 characters, including uppercase, lowercase, numbers, and symbols.
+
+  </Step>
+  <Step title="Verify Email" icon="mail">
+
+    Check your inbox for the verification email from D.Galkin.
+
+    Click the confirmation link. If you do not see it, check your spam folder.
+
+  </Step>
+  <Step title="Log In" icon="log-in">
+
+    Return to the dashboard and log in with your verified credentials.
+
+    You now see the main dashboard.
+
+  </Step>
+</Steps>
+
+## Take a Dashboard Tour
+
+The D.Galkin dashboard provides an overview of your activity and quick actions.
+
+<Columns cols={3}>
+  <Card title="Projects" icon="folder" href="#projects">
+    View and manage your Di.G projects.
+  </Card>
+  <Card title="API Keys" icon="key" href="#api-keys">
+    Generate keys for integrations.
+  </Card>
+  <Card title="Billing" icon="credit-card" href="#billing">
+    Manage subscription and usage.
+  </Card>
+</Columns>
+
+## Configure Basic Settings
+
+Set up essential configurations to personalize your experience.
+
+<Tabs>
+  <Tab title="Profile" icon="user">
+
+    Navigate to **Settings > Profile**.
+
+    Update your name, timezone, and notification preferences.
+
+  </Tab>
+  <Tab title="API Access" icon="api">
+
+    Go to **Settings > API**.
+
+    Generate your first API key.
+
+    <CodeGroup tabs="JavaScript,cURL">
+      ````javascript
+      const response = await fetch('https://api.example.com/v1/user', {
+        headers: {
+          'Authorization': `Bearer YOUR_API_KEY`
+        }
+      });
+      const data = await response.json();
+      console.log(data);
+      ````
+
+      ````bash
+      curl -H "Authorization: Bearer YOUR_API_KEY" \
+           https://api.example.com/v1/user
+      ````
+    </CodeGroup>
+
+  </Tab>
+</Tabs>
+
+<ParamField path="userId" param-type="string" required="true">
+  Your unique D.Galkin user identifier.
+</ParamField>
+
+## Make Your First Interaction
+
+Test your setup by fetching your user profile.
+
+<Request tabs="JavaScript,cURL" show-lines="true">
+  ````javascript
+  const response = await fetch('https://api.example.com/v1/user', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer YOUR_API_KEY`,
+      'Content-Type': 'application/json'
+    }
+  });
+  const user = await response.json();
+  console.log('Welcome,', user.name);
+  ````
+
+  ````bash
+  curl -X GET \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    https://api.example.com/v1/user
+  ````
+</Request>
+
+<Response tabs="200">
+```json
+{
+  "id": "usr_123abc456def",
+  "name": "Your Name",
+  "email": "you@example.com",
+  "projects": []
+}
+```
+</Response>
+
+<Callout kind="success">
+
+Success! You completed your first API call. Explore projects next.
+
+</Callout>
+
+## Avoid Common Setup Pitfalls
+
+<Expandable title="Troubleshooting Tips" default-open="true">
+
+- **Email not received?** Add `no-reply@example.com` to your contacts.
+- **Invalid API key?** Regenerate under **Settings > API** and use `YOUR_API_KEY` placeholder replacement.
+- **CORS errors in browser?** Use a backend or tools like Postman for testing.
+- **Rate limits hit?** Check usage in dashboard; upgrade if needed.
+
+</Expandable>
+
+<Callout kind="alert">
+
+Never share your `YOUR_API_KEY` publicly. Revoke compromised keys immediately.
+
+</Callout>
+
+## Next Steps
+
+<Columns cols={2}>
+  <Card title="Create a Project" icon="plus" href="/introduction">
+    Build your first Di.G diagram.
+  </Card>
+  <Card title="API Reference" icon="book-open" href="/authentication">
+    Dive into full API docs.
+  </Card>
+</Columns>

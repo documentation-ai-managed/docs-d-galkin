@@ -1,0 +1,121 @@
+---
+title: Changelog
+description: Track the latest updates, improvements, and fixes in D.Galkin, with details on recent releases.
+---
+
+## Latest Updates
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added native integrations with Slack and Zapier for seamless workflow automation.
+- Introduced webhook support for real-time event notifications to your custom endpoints.
+
+## Improvements
+
+- Enhanced dashboard performance with optimized data loading, reducing load times by `>40%`.
+- Improved error handling in API responses with more descriptive messages.
+
+## Bug Fixes
+
+- Fixed intermittent failures in batch processing endpoints.
+- Resolved UI glitches on mobile devices during theme switching.
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["improvement", "bugfix"]}>
+
+## Improvements
+
+- Redesigned the analytics dashboard with customizable widgets and dark mode support.
+- Upgraded authentication flows to support multi-factor authentication (MFA).
+
+## Bug Fixes
+
+- Patched security vulnerability in token refresh mechanism (CVE-2024-5678).
+- Corrected data export issues when handling large datasets (`>10,000` records).
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Launched core API with endpoints for user management and data querying.
+- Added dashboard for visualizing metrics and reports.
+
+## Breaking Changes
+
+- Initial schema changes require updating your integration code—see migration guide.
+
+## Bug Fixes
+
+- Fixed initial setup errors during first-time dashboard access.
+
+</Update>
+
+## Version Summary
+
+| Version | Date       | Key Changes                  | Tags                  |
+|---------|------------|------------------------------|-----------------------|
+| v1.2.0  | 2024-10-15 | Integrations, performance    | feature, improvement |
+| v1.1.0  | 2024-09-20 | UI redesign, MFA             | improvement, bugfix  |
+| v1.0.0  | 2024-08-10 | Initial release              | feature, breaking    |
+
+<Callout kind="alert">
+Review security patches in v1.1.0 and upgrade immediately if using affected endpoints.
+</Callout>
+
+## Upgrade Instructions
+
+<Steps>
+  <Step title="Check Compatibility" icon="check-circle">
+
+Review the [migration guide](/quickstart) for breaking changes in your version.
+
+  </Step>
+  <Step title="Update Package" icon="download">
+
+```bash
+npm install d-galkin@latest
+```
+
+Or for Python:
+
+````python
+pip install d-galkin==1.2.0
+````
+
+  </Step>
+  <Step title="Test Integration" icon="play-circle">
+Run your test suite to verify API calls to `https://api.example.com/v1/*`.
+  </Step>
+  <Step title="Deploy Changes" icon="rocket">
+Monitor logs for `>24 hours` post-deployment.
+  </Step>
+</Steps>
+
+## Quick Links
+
+<Columns cols={3}>
+  <Card title="Quickstart" icon="book-open" href="/quickstart">
+    Get started with the latest version.
+  </Card>
+  <Card title="Authentication" icon="lock" href="/authentication">
+    Updated auth flows and MFA setup.
+  </Card>
+  <Card title="API Reference" icon="code" href="/introduction">
+    Full endpoint documentation.
+  </Card>
+</Columns>
+
+<Expandable title="Upcoming Features" default-open="false">
+
+- Real-time collaboration in dashboards (Q4 2024).
+- Advanced AI-powered analytics.
+- Expanded integrations with GitHub and Notion.
+
+Stay tuned by following our GitHub repository.
+
+</Expandable>
